@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { poppins } from "./ui/fonts";
+import "./normalize.css"
+import { poppins } from "../components/ui/fonts";
+import clsx from "clsx";
 
 
 export const metadata: Metadata = {
