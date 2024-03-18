@@ -10,28 +10,28 @@ import { Check, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
 
-interface FormContentProps {
+interface FormInfoLayoutProps {
   title: "Cliente" | "Profesional" | "Empresa"
   checkListData: Readonly<string[]>
 }
 
-const FormContent = ({
+const FormInfoLayout = ({
   title,
   checkListData
-}: FormContentProps) => {
+}: FormInfoLayoutProps) => {
   const isClient = title === "Cliente"
   const isProfessional = title === "Profesional"
   const isEnterprise = title === "Empresa"
 
   const formsRoutes = {
-    "Cliente": "form-register-client",
-    "Profesional": "form-register-professional",
-    "Empresa": "form-register-enterprise",
+    "Cliente": "client",
+    "Profesional": "professional",
+    "Empresa": "enterprise",
   }
 
   const CheckListData = () => {
     return (
-      <ul className="flex flex-col gap-4 h-full text-neutral-500 text-xs">
+      <ul className="flex flex-col gap-4 h-full text-neutral-700 text-xs">
         {checkListData.map((item, index) => (
           <li
             className="flex items-center gap-2 font-medium"
@@ -53,7 +53,7 @@ const FormContent = ({
 
   return (
     <section className={clsx(
-      "flex flex-col shadow-lg gap-4 rounded w-full p-4", {
+      "flex flex-col gap-4 w-full p-4", {
       "bg-gradient-to-t from-amber-100 to-amber-50": isClient,
       "bg-gradient-to-t from-slate-100 to-slate-50": isProfessional,
       "bg-gradient-to-t from-emerald-100 to-emerald-50": isEnterprise,
@@ -74,7 +74,7 @@ const FormContent = ({
           "bg-slate-200 hover:bg-slate-400 text-slate-900": isProfessional,
           "bg-emerald-200 hover:bg-emerald-400 text-emerald-900": isEnterprise,
         })}
-        href={`forms/${formsRoutes[title]}`}
+        href={`forms/form-register-${formsRoutes[title]}`}
       >
         Comenzar
         <ChevronRight />
@@ -86,34 +86,39 @@ const FormContent = ({
 
 
 const FormRegisterClientInfo = () => (
-  <FormContent
+  <FormInfoLayout
     title="Cliente"
     checkListData={checkListClient}
   />
 )
 
 const FormRegisterProfessionalInfo = () => (
-  <FormContent
+  <FormInfoLayout
     title="Profesional"
     checkListData={checkListProfessional}
   />
 )
 
 const FormRegisterEnterpriseInfo = () => (
-  <FormContent
+  <FormInfoLayout
     title="Empresa"
     checkListData={checkListEnterprise}
   />
 )
 
 
-export default function Forms() {
+export default function FormsInfo() {
   return (
     <main className="flex flex-col bg-neutral-50 p-1 max-w-screen-2xl">
-      <h1 className="bg-gradient-to-r from-sky-950 to-sky-800 py-4 rounded-md font-bold text-4xl text-center text-white uppercase">
-        ¿Cómo deseas registrarte?
-      </h1>
-      <section className="flex justify-between gap-8">
+      <header className="bg-gradient-to-r from-amber-100 via-slate-100 to-emerald-100 pb-5">
+        <h1 className="rounded-md w-full font-bold text-4xl text-center uppercase">
+          ¿Cómo deseas registrarte?
+        </h1>
+        <h2 className="font-medium text-center text-rose-700">
+          Elige el perfil que se adecúe a lo que necesites
+        </h2>
+      </header>
+      <section className="flex">
         <FormRegisterClientInfo />
         <FormRegisterProfessionalInfo />
         <FormRegisterEnterpriseInfo />
